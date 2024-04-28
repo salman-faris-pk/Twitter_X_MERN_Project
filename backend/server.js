@@ -7,8 +7,9 @@ dotenv.config();
  import authRoutes from "./routes/auth.routes.js"
 
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth',authRoutes)
-
 
 
 
