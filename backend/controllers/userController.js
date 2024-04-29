@@ -87,11 +87,29 @@ export const followUnfollow=async(req,res)=>{
 
 
 
-export const userSuggestions=async(req,res)=>{
+export const Suggestionusers=async(req,res)=>{
     try {
         const userId=req.user._id;
         const usersFllowedByMe=await User.findById(userId).select("following")
-        
+
+        const users = await User.aggregate([
+			{
+				$match: {
+					_id: { $ne: userId },
+				},
+			},
+			{ $sample: { size: 10 } },           //It randomly selects a specified number of documents from the input.
+		]);
+
+        const filteredUsers= users.filter((user)=> !usersFllowedByMe.following.includes(user._id))  //it filters the users that the logineduser not following,which means not following users are the suggest users.
+        const suggestionUsers=filteredUsers.slice(0,6)
+        // console.log(suggestionUsers);
+
+         suggestionUsers.forEach((user)=>(user.password=null))
+
+         res.status(200).json(suggestionUsers);
+
+
     } catch (error) {
         console.log("Error in SuggestedUsers: ", error.message);
 		res.status(500).json({
