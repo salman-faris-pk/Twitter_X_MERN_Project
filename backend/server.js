@@ -6,11 +6,18 @@ dotenv.config();
  import connectMongoDb from "./db/mongodbConnects.js"
  import authRoutes from "./routes/auth.routes.js"
 import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.route.js"
 
 app.use(express.json())
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+
+
 app.use('/api/auth',authRoutes)
+app.use('/api/users',userRoutes)
+
+
 
 
 
