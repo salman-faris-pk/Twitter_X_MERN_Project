@@ -7,9 +7,11 @@ dotenv.config();
  import authRoutes from "./routes/auth.routes.js"
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.route.js"
-import {v2 as cloudinary}  from "cloudinary"
+import cloudinary from "cloudinary";
+import postRoutes from "./routes/post.routes.js"
 
-app.use(express.json())
+
+app.use(express.json({ limit: "5mb" }))
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
@@ -17,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/auth',authRoutes)
 app.use('/api/users',userRoutes)
+app.use('/api/posts',postRoutes)
+
 
 
 

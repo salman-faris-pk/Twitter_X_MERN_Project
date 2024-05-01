@@ -1,7 +1,8 @@
 import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs"
-import { v2 as cloudinary } from "cloudinary";
+import cloudinary from "cloudinary";
+
 
 
 
@@ -123,7 +124,9 @@ export const Suggestionusers=async(req,res)=>{
 export const updateUser=async(req,res)=>{
 
     const {fulName,email,username,currentPassword,newPassword,Bio,link}=req.body;
-    let {profileImg,coverImg}=req.body;
+    let { profileImg,coverImg }=req.body;
+    //   console.log(profileImg);
+    //   console.log(coverImg);
 
     const userId=req.user._id;
 
@@ -157,8 +160,8 @@ export const updateUser=async(req,res)=>{
             
             await cloudinary.uploader.destroy(user.profileImg.split("/").pop().split(".")[0]);
         }
-        const uploadedResponse=await cloudinary.uploader.upload(profileImg,{ folder: 'Twitter-clone-images' });
-        profileImg=uploadedResponse.secure_url;
+        const uploadedResponse =  await cloudinary.uploader.upload(profileImg,{ folder: 'Twitter-clone-images' });
+          profileImg=uploadedResponse.secure_url;
      }
     
      if(coverImg){
@@ -166,7 +169,8 @@ export const updateUser=async(req,res)=>{
             await cloudinary.uploader.destroy(user.coverImg.split("/").pop().split(".")[0]);
         }
         const uploadedResponse = await cloudinary.uploader.upload(coverImg,{ folder: 'Twitter-clone-images' });
-			coverImg = uploadedResponse.secure_url;
+			 coverImg = uploadedResponse.secure_url;
+             
      }
 
         user.fullName= fulName || user.fullName
