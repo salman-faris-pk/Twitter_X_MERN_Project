@@ -1,6 +1,6 @@
 import express from "express"
 import { protectRoute } from "../middlewares/protectRoutes.js";
-import { DeletePost, createPost } from "../controllers/postController.js";
+import { CommentPost, DeletePost, LikeunLikePost, createPost } from "../controllers/postController.js";
 const router=express.Router()
 
 
@@ -9,6 +9,8 @@ const router=express.Router()
 router
 .post("/post",protectRoute,createPost)
 .delete("/:id",protectRoute,DeletePost)
+.post("/comment/:id",protectRoute,CommentPost)
+.post("/likeUnlike/:id",protectRoute,LikeunLikePost)
 
 
 
