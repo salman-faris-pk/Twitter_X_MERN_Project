@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.route.js"
 import cloudinary from "cloudinary";
 import postRoutes from "./routes/post.route.js"
+import notificRoutes from './routes/notification.route.js'
 
 
 app.use(express.json({ limit: "5mb" }))
@@ -20,6 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth',authRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/posts',postRoutes)
+app.use('/api/notifications',notificRoutes)
+
 
 
 
