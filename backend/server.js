@@ -2,13 +2,13 @@ import express from "express"
 const app=express();
 import dotenv from "dotenv"
 dotenv.config();
- const port=process.env.PORT
- import connectMongoDb from "./db/mongodbConnects.js"
- import authRoutes from "./routes/auth.routes.js"
+const port=process.env.PORT
+import connectMongoDb from "./db/mongodbConnects.js"
+import authRoutes from "./routes/auth.route.js"
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.route.js"
 import cloudinary from "cloudinary";
-import postRoutes from "./routes/post.routes.js"
+import postRoutes from "./routes/post.route.js"
 
 
 app.use(express.json({ limit: "5mb" }))
