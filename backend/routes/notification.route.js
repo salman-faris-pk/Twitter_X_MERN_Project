@@ -1,7 +1,8 @@
 import express from "express";
+const router=express.Router()
 import { protectRoute } from "../middlewares/protectRoutes.js";
 import { deleteNotifications, getAllNotifications } from "../controllers/notificController.js"
-const router=express.Router()
+
 
 
 
@@ -11,5 +12,4 @@ router
 
 
 
- 
 export default router
