@@ -13,7 +13,7 @@ router
 .post("/comment/:id",protectRoute,CommentPost)
 .post("/likeUnlike/:id",protectRoute,LikeunLikePost)
 .get("/AllPosts",protectRoute,getAllPosts)
-.get("/likedPost/:id",protectRoute,getLikedPosts)
+.get("/like/:id",protectRoute,getLikedPosts)
 .get("/followingPosts",protectRoute,getFollowingPosts)
 .get("/userspost/:username",protectRoute,getUserPosts)
 
