@@ -27,7 +27,7 @@ const ProfilePage = () => {
 		_id: "1",
 		fullName: "John Doe",
 		username: "johndoe",
-		profileImg: "/avatars/boy2.png",
+		profileImg: "/avatars/boy2.jpg",
 		coverImg: "/cover.png",
 		bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 		link: "https://youtube.com/@asaprogrammer_",

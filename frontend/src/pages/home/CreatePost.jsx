@@ -13,7 +13,7 @@ const CreatePost = () => {
 	const isError = false;
 
 	const data = {
-		profileImg: "/avatars/boy1.png",
+		profileImg: "/avatars/boy1.jpg",
 	};
 
 	const handleSubmit = (e) => {
