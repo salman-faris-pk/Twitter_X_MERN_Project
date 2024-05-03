@@ -1,20 +1,23 @@
-
+import { Routes,Route } from "react-router-dom"
+import Homepage from "./pages/home/Homepage"
+import SignUpPage from "./pages/auth/signup/SignUpPage"
+import Loginpage from "./pages/auth/login/Loginpage"
 
 
 function App() {
   
 
   return (
-    <>
-      <h1 className='text-3xl font-extrabold underline text-red-700'>salman</h1>
-      <button className="btn">Button</button>
-<button className="btn btn-neutral">Neutral</button>
-<button className="btn btn-primary">Primary</button>
-<button className="btn btn-secondary">Secondary</button>
-<button className="btn btn-accent">Accent</button>
-<button className="btn btn-ghost">Ghost</button>
-<button className="btn btn-link">Link</button>
-    </>
+    
+    <div className='flex max-w-6xl mx-auto'>
+        <Routes>
+
+        <Route path='/' element={<Homepage />} />
+				<Route path='/signup' element={<SignUpPage />} />
+				<Route path='/login' element={<Loginpage />} />
+          
+          </Routes>     
+    </div>
   )
 }
 
