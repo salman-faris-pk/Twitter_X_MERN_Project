@@ -19,6 +19,7 @@ function App() {
         const res = await fetch("/api/auth/me");
 				const data = await res.json();
 				if (data.error) return null;
+
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
 				}
@@ -47,7 +48,7 @@ function App() {
 
     <div className='flex max-w-6xl mx-auto'>
          
-         <Sidebar/>
+         { authUser && <Sidebar/> }
 
         <Routes>
 
@@ -59,7 +60,7 @@ function App() {
 
         </Routes> 
 
-        <RightPanel/>
+        { authUser && <RightPanel/> }
         <Toaster/>
 
     </div>
