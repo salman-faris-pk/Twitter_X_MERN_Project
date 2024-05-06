@@ -22,7 +22,7 @@ const Posts = ({feedType}) => {
 	const POST_URLS= getPostsUrls();
 
 	const {data : posts, isLoading,refetch,isRefetching}=useQuery({
-		queryKey : ["posts"],
+		queryKey : ["posts"],       //we sets here posts as a uniquekey
 		queryFn : async()=>{
 			try {
                const response=await fetch(POST_URLS)
