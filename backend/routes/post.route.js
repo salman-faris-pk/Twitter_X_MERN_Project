@@ -12,7 +12,7 @@ router
 .delete("/:id",protectRoute,DeletePost)
 .post("/comment/:id",protectRoute,CommentPost)
 .post("/likeUnlike/:id",protectRoute,LikeunLikePost)
-.get("/AllPosts",protectRoute,getAllPosts)
+.get("/AllPosts",protectRoute,getAllPosts)         
 .get("/like/:id",protectRoute,getLikedPosts)
 .get("/followingPosts",protectRoute,getFollowingPosts)
 .get("/userspost/:username",protectRoute,getUserPosts)
