@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 const NotificationPage = () => {
     const queryClient=useQueryClient()
+	
      const {data: notifications,isLoading}=useQuery({
 		queryKey:["notifications"],
 		queryFn: async()=>{
