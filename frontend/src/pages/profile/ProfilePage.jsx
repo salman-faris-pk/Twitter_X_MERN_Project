@@ -13,6 +13,7 @@ import { FaLink } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import { formatMemberSinceDate } from "../../utils/date";
+import useFollow from "../../hooks/useFollow";
 
 const ProfilePage = () => {
 	const [coverImg, setCoverImg] = useState(null);
@@ -22,8 +23,10 @@ const ProfilePage = () => {
 	const coverImgRef = useRef(null);
 	const profileImgRef = useRef(null);
     const {username}=useParams() 
-	const isMyProfile = true;
       
+	const { follow, isPending }=useFollow()
+
+	const{data:authUser}=useQuery({queryKey: ["authUser"]})
      
 	const{data: user, isLoading,refetch,isRefetching}=useQuery({
 		queryKey:["userProfile"],
@@ -46,6 +49,8 @@ const ProfilePage = () => {
 	},[username,refetch])
 	
 	const joinedDate=formatMemberSinceDate(user?.createdAt)
+	const isMyProfile = authUser._id === user?._id;
+	const amIFollowing = authUser?.following.includes(user?._id);
 
 
 	const handleImgChange = (e, state) => {
@@ -93,7 +98,7 @@ const ProfilePage = () => {
 										<MdEdit className='w-5 h-5 text-white' />
 									</div>
 								)}
-
+          
 								<input
 									type='file'
 									hidden
@@ -126,9 +131,11 @@ const ProfilePage = () => {
 								{!isMyProfile && (
 									<button
 										className='btn btn-outline rounded-full btn-sm'
-										onClick={() => alert("Followed successfully")}
+										onClick={() => follow(user?._id)}
 									>
-										Follow
+										{isPending && "Loading..."}
+										{!isPending && amIFollowing && "Unfollow"}
+										{!isPending && !amIFollowing && "Follow"}
 									</button>
 								)}
 								{(coverImg || profileImg) && (
@@ -149,13 +156,14 @@ const ProfilePage = () => {
 								</div>
 
 								<div className='flex gap-2 flex-wrap'>
-										<div className='flex gap-1 items-center cursor-pointer'>
+									{user?.link && (
+										<div className='flex gap-1 items-center '>
 											<>
-												<FaLink className='w-3 h-3 text-slate-500' />
-									              {user?.link}
-												
+												<FaLink className='w-3 h-3 text-slate-500' />			
+													{user?.link}
 											</>
 										</div>
+									)}
 									
 									<div className='flex gap-2 items-center'>
 										<IoCalendarOutline className='w-4 h-4 text-slate-500' />
