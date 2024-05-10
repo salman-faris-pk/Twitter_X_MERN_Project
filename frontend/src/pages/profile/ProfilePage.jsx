@@ -14,6 +14,7 @@ import { MdEdit } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import { formatMemberSinceDate } from "../../utils/date";
 import useFollow from "../../hooks/useFollow";
+import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 
 const ProfilePage = () => {
 	const [coverImg, setCoverImg] = useState(null);
@@ -47,6 +48,10 @@ const ProfilePage = () => {
 	useEffect(()=>{
       refetch();
 	},[username,refetch])
+
+
+   const {isUpdatingProfile,updateProfile}=useUpdateUserProfile()
+
 	
 	const joinedDate=formatMemberSinceDate(user?.createdAt)
 	const isMyProfile = authUser._id === user?._id;
@@ -142,9 +147,13 @@ const ProfilePage = () => {
 								{(coverImg || profileImg) && (
 									<button
 										className='btn btn-primary rounded-full btn-sm text-white px-4 ml-2'
-										onClick={() => alert("Profile updated successfully")}
+										onClick={async() => {
+											await updateProfile({coverImg,profileImg})
+										    setProfileImg(null)
+											setCoverImg(null)
+										}}
 									>
-										Update
+										{isUpdatingProfile ? "Updating..." : "Update"}
 									</button>
 								)}
 							</div>
