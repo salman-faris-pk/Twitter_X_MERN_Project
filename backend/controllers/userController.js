@@ -123,7 +123,7 @@ export const Suggestionusers=async(req,res)=>{
 
 export const updateUser=async(req,res)=>{
 
-    const {fulName,email,username,currentPassword,newPassword,Bio,link}=req.body;
+    const {fullName,email,username,currentPassword,newPassword,Bio,link}=req.body;
     let { profileImg,coverImg }=req.body;
     //   console.log(profileImg);
     //   console.log(coverImg);
@@ -173,7 +173,7 @@ export const updateUser=async(req,res)=>{
              
      }
 
-        user.fullName= fulName || user.fullName
+        user.fullName= fullName || user.fullName
         user.email = email || user.email;
 		user.username = username || user.username;
 		user.Bio = Bio || user.Bio;
