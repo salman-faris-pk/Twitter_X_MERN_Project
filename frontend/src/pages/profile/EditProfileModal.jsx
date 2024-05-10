@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const EditProfileModal = () => {
+const EditProfileModal = ({authUser}) => {
 	const [formData, setFormData] = useState({
 		fullName: "",
 		username: "",
@@ -14,6 +14,19 @@ const EditProfileModal = () => {
 	const handleInputChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+
+
+	useEffect(()=>{
+      setFormData({
+		fullName: authUser.fullName,
+		username: authUser.username,
+		email: authUser.email,
+		Bio: authUser.Bio,
+		link: authUser.link,
+		newPassword: "",
+		currentPassword: "",
+	  })
+	},[authUser])
 
 	return (
 		<>
