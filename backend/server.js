@@ -1,8 +1,11 @@
 import express from "express"
 const app=express();
+import path from "path"
 import dotenv from "dotenv"
 dotenv.config();
-const port=process.env.PORT
+
+const port=process.env.PORT || 5000;
+
 import connectMongoDb from "./db/mongodbConnects.js"
 import authRoutes from "./routes/auth.route.js"
 import cookieParser from "cookie-parser";
@@ -12,9 +15,19 @@ import postRoutes from "./routes/post.route.js"
 import notificRoutes from './routes/notification.route.js'
 
 
+const __dirname= path.resolve();
+
+
 app.use(express.json({ limit: "5mb" }))
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 
 
@@ -24,14 +37,13 @@ app.use('/api/posts',postRoutes)
 app.use('/api/notifications',notificRoutes)
 
 
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-
-
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-	api_key: process.env.CLOUDINARY_API_KEY,
-	api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+	});
+}
 
 
 app.listen(port,()=>{
