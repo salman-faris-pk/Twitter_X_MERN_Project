@@ -3,6 +3,7 @@ const app=express();
 import path from "path"
 import dotenv from "dotenv"
 dotenv.config();
+import cors from "cors"
 
 const port=process.env.PORT || 5000;
 
@@ -19,6 +20,7 @@ const __dirname= path.resolve();
 
 
 app.use(express.json({ limit: "10mb" }))
+app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
@@ -37,10 +39,19 @@ app.use('/api/posts',postRoutes)
 app.use('/api/notifications',notificRoutes)
 
 
+app.use(express.static(path.join(__dirname, "frontend/dist")));
 
+app.get("*",(req,res)=>{
+   res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
+});
+
+app.get("/",(req,res)=>{
+    res.send("hello! lokam")
+ });
 
 app.listen(port,()=>{
     console.log("server running on ",port);
     connectMongoDb();
-})
+});
 
+                
