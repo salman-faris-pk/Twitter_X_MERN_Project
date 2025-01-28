@@ -1,6 +1,5 @@
 import express from "express"
 const app=express();
-import path from "path"
 import dotenv from "dotenv"
 dotenv.config();
 import cors from "cors"
@@ -14,9 +13,6 @@ import userRoutes from "./routes/user.route.js"
 import cloudinary from "cloudinary";
 import postRoutes from "./routes/post.route.js"
 import notificRoutes from './routes/notification.route.js'
-
-
-const __dirname= path.resolve();
 
 
 app.use(express.json({ limit: "10mb" }))
@@ -39,15 +35,7 @@ app.use('/api/posts',postRoutes)
 app.use('/api/notifications',notificRoutes)
 
 
-app.use(express.static(path.join(__dirname, "frontend/dist")));
 
-app.get("*",(req,res)=>{
-   res.sendFile(path.join(__dirname, "frontend/dist", "index.html"));
-});
-
-app.get("/",(req,res)=>{
-    res.send("hello! lokam")
- });
 
 app.listen(port,()=>{
     console.log("server running on ",port);
