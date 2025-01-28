@@ -17,7 +17,7 @@ import notificRoutes from './routes/notification.route.js'
 
 app.use(express.json({ limit: "10mb" }))
 app.use(cors({
-    origin:"http://localhost:3000",
+    origin:["https://x-mern-pk.vercel.app","http://localhost:3000"],
     methods: ['GET', 'POST', 'PUT',"DELETE"], 
     allowedHeaders: ['Content-Type'], 
     credentials: true,
