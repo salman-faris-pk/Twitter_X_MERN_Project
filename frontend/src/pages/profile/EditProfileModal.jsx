@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 
+
+
 const EditProfileModal = ({authUser}) => {
 	const [formData, setFormData] = useState({
 		fullName: "",

@@ -4,9 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Posts from "../../components/common/Posts";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
 import EditProfileModal from "./EditProfileModal";
-
-import { POSTS } from "../../utils/db/dummy";
-
+import { backendUrl } from "../../utils/backendurl"
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
@@ -20,6 +18,7 @@ const ProfilePage = () => {
 	const [coverImg, setCoverImg] = useState(null);
 	const [profileImg, setProfileImg] = useState(null);
 	const [feedType, setFeedType] = useState("posts");
+	const [postCount,setPostCount]=useState(0)
 
 	const coverImgRef = useRef(null);
 	const profileImgRef = useRef(null);
@@ -33,7 +32,7 @@ const ProfilePage = () => {
 		queryKey:["userProfile"],
 		queryFn: async()=>{
 			try {
-				const res=await fetch(`/api/users/profile/${username}`);	
+				const res=await fetch(`${backendUrl}/api/users/profile/${username}`,{credentials:"include"});	
 				const data=await res.json();
 				if(!res.ok){
 					throw new Error(data.error || "Something went wrong")
@@ -43,8 +42,9 @@ const ProfilePage = () => {
 				throw new Error(error);
 			}
 		}
-	})
-    
+	});
+
+	
 	useEffect(()=>{
       refetch();
 	},[username,refetch])
@@ -86,7 +86,7 @@ const ProfilePage = () => {
 								</Link>
 								<div className='flex flex-col'>
 									<p className='font-bold text-lg'>{user?.fullName}</p>
-									<span className='text-sm text-slate-500'>{POSTS?.length} posts</span>
+									<span className='text-sm text-slate-500'>@{user?.username}</span>
 								</div>
 							</div>
 							{/* COVER IMG */}

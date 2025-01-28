@@ -2,24 +2,25 @@ import Post from "./Post";
 import PostSkeleton from "../skeletons/PostSkeleton";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { backendUrl } from "../../utils/backendurl"
 
 const Posts = ({feedType,username,userId}) => {
 
 	const getPostsUrls=()=>{
 		switch(feedType){
 			case "forYou" :
-				return "/api/posts/AllPosts";
+				return `${backendUrl}/api/posts/AllPosts`;
 			
 			case "following":
-				return "/api/posts/followingPosts";
+				return `${backendUrl}/api/posts/followingPosts`;
 
 			case "posts" :
-				return `/api/posts/userspost/${username}`
+				return `${backendUrl}/api/posts/userspost/${username}`
 			case "likes":
-				return `/api/posts/like/${userId}`
+				return `${backendUrl}/api/posts/like/${userId}`
 			
 			default:
-				return "/api/posts/AllPosts";	
+				return `${backendUrl}/api/posts/AllPosts`;	
 
 		}
 	}
@@ -27,16 +28,16 @@ const Posts = ({feedType,username,userId}) => {
 	const POST_URLS= getPostsUrls();
 
 	const {data : posts, isLoading,refetch,isRefetching}=useQuery({
-		queryKey : ["posts"],       //we sets here posts as a uniquekey
+		queryKey : ["posts"],       
 		queryFn : async()=>{
 			try {
-               const response=await fetch(POST_URLS)
+               const response=await fetch(POST_URLS,{credentials:"include"})
 			   const data= await response.json();
 
 			   if(!response.ok){
 				throw new Error(data.Error || "Something went wrong")
 			   }
-                 
+               
 			   return data;
 				
 			} catch (error) {

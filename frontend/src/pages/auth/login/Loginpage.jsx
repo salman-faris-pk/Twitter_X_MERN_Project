@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { backendUrl } from "../../../utils/backendurl"
 import XSvg from "../../../components/svgs/X";
 
 import { MdOutlineMail } from "react-icons/md";
@@ -19,11 +19,12 @@ const LoginPage = () => {
 	const {mutate:loginMutation,isError,isPending,error}=useMutation({
 		mutationFn:async({username,password})=>{
 			try {
-				const response=await fetch("/api/auth/signin",{
+				const response=await fetch(`${backendUrl}/api/auth/signin`,{
 				  method:"POST",
 				  headers:{
 					"Content-Type":"application/json"
-				  }	,
+				  },
+				  credentials:"include",
 				  body: JSON.stringify({username,password})
 				});
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
-
+import { backendUrl } from "../../utils/backendurl"
 import { IoSettingsOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
@@ -14,7 +14,7 @@ const NotificationPage = () => {
 		queryKey:["notifications"],
 		queryFn: async()=>{
 			try {
-              const res=await fetch("/api/notifications")
+              const res=await fetch(`${backendUrl}/api/notifications`,{credentials:"include"})
 			  const data=await res.json();
 			  
 			  if(!res.ok){
@@ -31,8 +31,9 @@ const NotificationPage = () => {
 	 const { mutate: deleteNotifications } = useMutation({
 		mutationFn: async () => {
 			try {
-				const res = await fetch("/api/notifications", {
+				const res = await fetch(`${backendUrl}/api/notifications`, {
 					method: "DELETE",
+					credentials:"include"
 				});
 				const data = await res.json();
 

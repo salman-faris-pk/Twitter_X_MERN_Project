@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { backendUrl } from "../../utils/backendurl"
+
 
 const CreatePost = () => {
 	const [text, setText] = useState("");
@@ -17,11 +19,12 @@ const CreatePost = () => {
   const {mutate:createpost,isPending,isError,error}=useMutation({
      mutationFn: async({text, img})=>{
       try {
-		const res=await fetch("/api/posts/post",{
+		const res=await fetch(`${backendUrl}/api/posts/post`,{
 			method:"POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
+			credentials:"include",
 			body: JSON.stringify({ text, img }),
 		});
 

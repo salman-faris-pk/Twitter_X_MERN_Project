@@ -9,21 +9,24 @@ import ProfilePage from "./pages/profile/ProfilePage"
 import { Toaster } from "react-hot-toast"
 import { useQuery } from "@tanstack/react-query"
 import LoadingSpinner from "./components/common/LoadingSpinner"
+import { backendUrl } from "./utils/backendurl"
 
 function App() {
   
+  
   const {data: authUser,isLoading}=useQuery({
-    queryKey: ["authUser"] ,              // we use queryKey to give a unique name to our query and refer to it later
+    queryKey: ["authUser"] ,              
     queryFn: async()=>{
       try {
-        const res = await fetch("/api/auth/me");
+        const res = await fetch(`${backendUrl}/api/auth/me`,{
+          credentials:"include"
+        });
 				const data = await res.json();
 				if (data.error) return null;
 
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
 				}
-				// console.log("authUser is here:", data);
 				return data;
         
       } catch (error) {

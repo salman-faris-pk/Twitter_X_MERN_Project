@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import XSvg from "../../../components/svgs/X";
-
+import { backendUrl } from "../../../utils/backendurl"
 import { MdOutlineMail } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
@@ -23,11 +23,12 @@ const SignUpPage = () => {
 	 const {mutate,isError,isPending,error}=useMutation({
 		mutationFn: async({email,username,fullName,password})=>{
 			try {
-				const response= await fetch('/api/auth/signup',{
+				const response= await fetch(`${backendUrl}/api/auth/signup`,{
 					method:"POST",
 					headers:{
 						"Content-Type": "application/json"
 					},
+					credentials:"include",
 					body: JSON.stringify({email,username,fullName,password})
 				});
 
@@ -35,7 +36,6 @@ const SignUpPage = () => {
 				
 				if(!response.ok)  throw new Error(data.error  || "Failed to create account");
 				
-				console.log(data)
 				return data;
 	
 			} catch (error) {

@@ -3,15 +3,12 @@ import jwt from "jsonwebtoken"
 
 export const generateTokenAndSetCookie=(userId,res)=>{
     const token=jwt.sign({userId},process.env.JWT_SECRET,{
-        expiresIn: '15d'
+        expiresIn: '2d'
     })
 
     res.cookie("jwt",token,{
-        maxAge: 15*24*60*60*1000,    //milliseconds
-        httpOnly: true,             //prevents attacks like xss..
-        sameSite: "strict",         //prevents crf attacks
-        secure: process.env.NODE_ENV !== "development",
-        
-
+        maxAge: 172800000,
+        httpOnly: true,            
+        secure: process.env.NODE_ENV === "production",
     })
 }
